@@ -15,7 +15,7 @@ namespace Library_System_V3
             panelBooks.Visible = false;
             panelBorrow.Visible = false;
             panelReturn.Visible = false;
-            panelHistory.Visible = false;
+            panelHistory.Visible = false; //gggg
         }
 
         private void headerLabel_Click(object sender, EventArgs e)
