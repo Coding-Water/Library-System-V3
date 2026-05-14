@@ -124,6 +124,7 @@ namespace Library_System_V3
             btnDeleteCat = new Button();
             btnAddCat = new Button();
             panelStudent = new Panel();
+            testbtn = new Button();
             studentDataGridView = new DataGridView();
             btnUpdateStudent = new Button();
             btnClearBox = new Button();
@@ -178,7 +179,6 @@ namespace Library_System_V3
             headerLabel.Size = new Size(518, 61);
             headerLabel.TabIndex = 0;
             headerLabel.Text = "Student Library System";
-            headerLabel.Click += headerLabel_Click;
             // 
             // panelBooks
             // 
@@ -199,10 +199,10 @@ namespace Library_System_V3
             panelBooks.Controls.Add(btnBkDelete);
             panelBooks.Controls.Add(btnBkAdd);
             panelBooks.Controls.Add(booksDataGridView);
-            panelBooks.Location = new Point(183, 77);
+            panelBooks.Location = new Point(1617, 51);
             panelBooks.Margin = new Padding(3, 4, 3, 4);
             panelBooks.Name = "panelBooks";
-            panelBooks.Size = new Size(1291, 837);
+            panelBooks.Size = new Size(122, 147);
             panelBooks.TabIndex = 29;
             // 
             // txtBkAuth
@@ -398,10 +398,10 @@ namespace Library_System_V3
             panelReturn.Controls.Add(label11);
             panelReturn.Controls.Add(txtRtnBrwId);
             panelReturn.Controls.Add(label13);
-            panelReturn.Location = new Point(186, 77);
+            panelReturn.Location = new Point(1515, 256);
             panelReturn.Margin = new Padding(3, 4, 3, 4);
             panelReturn.Name = "panelReturn";
-            panelReturn.Size = new Size(1291, 841);
+            panelReturn.Size = new Size(219, 198);
             panelReturn.TabIndex = 70;
             // 
             // label17
@@ -534,7 +534,6 @@ namespace Library_System_V3
             label7.Size = new Size(76, 35);
             label7.TabIndex = 70;
             label7.Text = "Book:";
-            label7.Click += label7_Click;
             // 
             // ReturnDataGridView
             // 
@@ -622,10 +621,10 @@ namespace Library_System_V3
             panelBorrow.Controls.Add(labelStundentBorrow);
             panelBorrow.Controls.Add(txtShowBookId);
             panelBorrow.Controls.Add(label6);
-            panelBorrow.Location = new Point(183, 73);
+            panelBorrow.Location = new Point(1515, 478);
             panelBorrow.Margin = new Padding(3, 4, 3, 4);
             panelBorrow.Name = "panelBorrow";
-            panelBorrow.Size = new Size(1291, 841);
+            panelBorrow.Size = new Size(222, 152);
             panelBorrow.TabIndex = 46;
             // 
             // cbYear
@@ -637,7 +636,6 @@ namespace Library_System_V3
             cbYear.Name = "cbYear";
             cbYear.Size = new Size(115, 43);
             cbYear.TabIndex = 69;
-            cbYear.SelectedIndexChanged += cbYear_SelectedIndexChanged;
             // 
             // cbDay
             // 
@@ -648,7 +646,6 @@ namespace Library_System_V3
             cbDay.Name = "cbDay";
             cbDay.Size = new Size(52, 43);
             cbDay.TabIndex = 68;
-            cbDay.SelectedIndexChanged += comboBox2_SelectedIndexChanged_1;
             // 
             // cbMonth
             // 
@@ -700,7 +697,6 @@ namespace Library_System_V3
             cbSelectBook.Name = "cbSelectBook";
             cbSelectBook.Size = new Size(371, 43);
             cbSelectBook.TabIndex = 63;
-            cbSelectBook.SelectedIndexChanged += comboBox2_SelectedIndexChanged_1;
             // 
             // label8
             // 
@@ -711,7 +707,6 @@ namespace Library_System_V3
             label8.Size = new Size(76, 35);
             label8.TabIndex = 62;
             label8.Text = "Book:";
-            label8.Click += label8_Click;
             // 
             // labelBkHeaderSelect
             // 
@@ -868,7 +863,7 @@ namespace Library_System_V3
             flowLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Padding = new Padding(0, 160, 0, 0);
-            flowLayoutPanel1.Size = new Size(179, 929);
+            flowLayoutPanel1.Size = new Size(179, 1003);
             flowLayoutPanel1.TabIndex = 1;
             // 
             // btnStudent
@@ -967,9 +962,8 @@ namespace Library_System_V3
             panelContent.Location = new Point(0, 0);
             panelContent.Margin = new Padding(3, 4, 3, 4);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(1485, 929);
+            panelContent.Size = new Size(1834, 1003);
             panelContent.TabIndex = 2;
-            panelContent.Paint += panelContent_Paint;
             // 
             // panelHistory
             // 
@@ -985,10 +979,10 @@ namespace Library_System_V3
             panelHistory.Controls.Add(label12);
             panelHistory.Controls.Add(cbFilterMemberId);
             panelHistory.Controls.Add(label5);
-            panelHistory.Location = new Point(184, 77);
+            panelHistory.Location = new Point(1499, 24);
             panelHistory.Margin = new Padding(3, 4, 3, 4);
             panelHistory.Name = "panelHistory";
-            panelHistory.Size = new Size(1291, 841);
+            panelHistory.Size = new Size(86, 211);
             panelHistory.TabIndex = 89;
             // 
             // dataGridView1
@@ -1084,7 +1078,6 @@ namespace Library_System_V3
             cbFilterCat.Name = "cbFilterCat";
             cbFilterCat.Size = new Size(285, 43);
             cbFilterCat.TabIndex = 3;
-            cbFilterCat.SelectedIndexChanged += comboBox2_SelectedIndexChanged_2;
             // 
             // label12
             // 
@@ -1127,10 +1120,10 @@ namespace Library_System_V3
             panelCategory.Controls.Add(btnClearCat);
             panelCategory.Controls.Add(btnDeleteCat);
             panelCategory.Controls.Add(btnAddCat);
-            panelCategory.Location = new Point(186, 77);
+            panelCategory.Location = new Point(187, 77);
             panelCategory.Margin = new Padding(3, 4, 3, 4);
             panelCategory.Name = "panelCategory";
-            panelCategory.Size = new Size(1291, 837);
+            panelCategory.Size = new Size(1293, 837);
             panelCategory.TabIndex = 19;
             // 
             // catergoryDataGridView
@@ -1230,6 +1223,7 @@ namespace Library_System_V3
             // 
             // panelStudent
             // 
+            panelStudent.Controls.Add(testbtn);
             panelStudent.Controls.Add(studentDataGridView);
             panelStudent.Controls.Add(btnUpdateStudent);
             panelStudent.Controls.Add(btnClearBox);
@@ -1255,12 +1249,21 @@ namespace Library_System_V3
             panelStudent.Size = new Size(1291, 841);
             panelStudent.TabIndex = 4;
             // 
+            // testbtn
+            // 
+            testbtn.Location = new Point(193, 633);
+            testbtn.Name = "testbtn";
+            testbtn.Size = new Size(94, 29);
+            testbtn.TabIndex = 19;
+            testbtn.Text = "test";
+            testbtn.UseVisualStyleBackColor = true;
+            // 
             // studentDataGridView
             // 
             studentDataGridView.BackgroundColor = SystemColors.Control;
             studentDataGridView.BorderStyle = BorderStyle.None;
             studentDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            studentDataGridView.Location = new Point(425, 43);
+            studentDataGridView.Location = new Point(423, 46);
             studentDataGridView.Margin = new Padding(3, 4, 3, 4);
             studentDataGridView.Name = "studentDataGridView";
             studentDataGridView.RowHeadersWidth = 51;
@@ -1277,6 +1280,7 @@ namespace Library_System_V3
             btnUpdateStudent.TabIndex = 17;
             btnUpdateStudent.Text = "Update";
             btnUpdateStudent.UseVisualStyleBackColor = true;
+            btnUpdateStudent.Click += btnUpdateStudent_Click;
             // 
             // btnClearBox
             // 
@@ -1288,6 +1292,7 @@ namespace Library_System_V3
             btnClearBox.TabIndex = 16;
             btnClearBox.Text = "Clear";
             btnClearBox.UseVisualStyleBackColor = true;
+            btnClearBox.Click += btnClearBox_Click;
             // 
             // btnDeleteStudent
             // 
@@ -1299,6 +1304,7 @@ namespace Library_System_V3
             btnDeleteStudent.TabIndex = 15;
             btnDeleteStudent.Text = "Delete";
             btnDeleteStudent.UseVisualStyleBackColor = true;
+            btnDeleteStudent.Click += btnDeleteStudent_Click;
             // 
             // btnAddStudent
             // 
@@ -1310,6 +1316,7 @@ namespace Library_System_V3
             btnAddStudent.TabIndex = 14;
             btnAddStudent.Text = "Add";
             btnAddStudent.UseVisualStyleBackColor = true;
+            btnAddStudent.Click += btnAddStudent_Click;
             // 
             // txtContact
             // 
@@ -1449,7 +1456,7 @@ namespace Library_System_V3
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1485, 929);
+            ClientSize = new Size(1834, 1003);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(headerPanel);
             Controls.Add(panelContent);
@@ -1598,5 +1605,6 @@ namespace Library_System_V3
         private DataGridView dataGridView1;
         private ComboBox cbDay;
         private ComboBox cbYear;
+        private Button testbtn;
     }
 }
