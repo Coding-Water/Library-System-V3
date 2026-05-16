@@ -31,7 +31,7 @@ namespace Library_System_V3
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             headerPanel = new Panel();
             headerLabel = new Label();
-            label22 = new Label();
+            dateLabel = new Label();
             panelBooks = new Panel();
             labelBkAuth = new Label();
             txtBkTitle = new TextBox();
@@ -51,6 +51,10 @@ namespace Library_System_V3
             booksDataGridView = new DataGridView();
             txtBkAuthor = new TextBox();
             panelBorrow = new Panel();
+            cbYearDue = new ComboBox();
+            cbDayDue = new ComboBox();
+            cbMonthDue = new ComboBox();
+            label21 = new Label();
             txtSearchLastName = new TextBox();
             label24 = new Label();
             txtSearchFirstName = new TextBox();
@@ -88,14 +92,14 @@ namespace Library_System_V3
             label15 = new Label();
             txtRtnMemId = new TextBox();
             label14 = new Label();
-            button1 = new Button();
+            btnReturnBk = new Button();
             txtRtnBk = new TextBox();
             label9 = new Label();
             label7 = new Label();
             ReturnDataGridView = new DataGridView();
             txtRtnLastName = new TextBox();
             label10 = new Label();
-            label11 = new Label();
+            dueDateLabelChecker = new Label();
             txtRtnBrwId = new TextBox();
             label13 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
@@ -107,6 +111,10 @@ namespace Library_System_V3
             btnHis = new Button();
             panelContent = new Panel();
             panelHistory = new Panel();
+            btnPermanentDelete = new Button();
+            label11 = new Label();
+            cbDataHistory = new ComboBox();
+            btnRetrieve = new Button();
             dataGridView1 = new DataGridView();
             btnClearFilter = new Button();
             btnApplyFilter = new Button();
@@ -170,7 +178,7 @@ namespace Library_System_V3
             // headerPanel
             // 
             headerPanel.Controls.Add(headerLabel);
-            headerPanel.Controls.Add(label22);
+            headerPanel.Controls.Add(dateLabel);
             headerPanel.Location = new Point(1, 0);
             headerPanel.Name = "headerPanel";
             headerPanel.Size = new Size(1294, 55);
@@ -186,18 +194,18 @@ namespace Library_System_V3
             headerLabel.TabIndex = 0;
             headerLabel.Text = "Student Library System";
             // 
-            // label22
+            // dateLabel
             // 
-            label22.AutoSize = true;
-            label22.Location = new Point(1124, 18);
-            label22.Name = "label22";
-            label22.Size = new Size(44, 15);
-            label22.TabIndex = 71;
-            label22.Text = "label22";
+            dateLabel.AutoSize = true;
+            dateLabel.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateLabel.Location = new Point(1078, 9);
+            dateLabel.Name = "dateLabel";
+            dateLabel.Size = new Size(75, 37);
+            dateLabel.TabIndex = 71;
+            dateLabel.Text = "date";
             // 
             // panelBooks
             // 
-            panelBooks.Controls.Add(panelBorrow);
             panelBooks.Controls.Add(labelBkAuth);
             panelBooks.Controls.Add(txtBkTitle);
             panelBooks.Controls.Add(labelBkTitle);
@@ -387,6 +395,10 @@ namespace Library_System_V3
             // 
             // panelBorrow
             // 
+            panelBorrow.Controls.Add(cbYearDue);
+            panelBorrow.Controls.Add(cbDayDue);
+            panelBorrow.Controls.Add(cbMonthDue);
+            panelBorrow.Controls.Add(label21);
             panelBorrow.Controls.Add(txtSearchLastName);
             panelBorrow.Controls.Add(label24);
             panelBorrow.Controls.Add(txtSearchFirstName);
@@ -414,10 +426,47 @@ namespace Library_System_V3
             panelBorrow.Controls.Add(labelStundentBorrow);
             panelBorrow.Controls.Add(txtShowBookId);
             panelBorrow.Controls.Add(label6);
-            panelBorrow.Location = new Point(0, 2);
+            panelBorrow.Location = new Point(162, 56);
             panelBorrow.Name = "panelBorrow";
             panelBorrow.Size = new Size(1133, 629);
             panelBorrow.TabIndex = 46;
+            // 
+            // cbYearDue
+            // 
+            cbYearDue.Font = new Font("Segoe UI", 15F);
+            cbYearDue.FormattingEnabled = true;
+            cbYearDue.Location = new Point(262, 498);
+            cbYearDue.Name = "cbYearDue";
+            cbYearDue.Size = new Size(101, 36);
+            cbYearDue.TabIndex = 79;
+            // 
+            // cbDayDue
+            // 
+            cbDayDue.Font = new Font("Segoe UI", 15F);
+            cbDayDue.FormattingEnabled = true;
+            cbDayDue.Location = new Point(206, 498);
+            cbDayDue.Name = "cbDayDue";
+            cbDayDue.Size = new Size(46, 36);
+            cbDayDue.TabIndex = 78;
+            // 
+            // cbMonthDue
+            // 
+            cbMonthDue.Font = new Font("Segoe UI", 15F);
+            cbMonthDue.FormattingEnabled = true;
+            cbMonthDue.Location = new Point(146, 498);
+            cbMonthDue.Name = "cbMonthDue";
+            cbMonthDue.Size = new Size(50, 36);
+            cbMonthDue.TabIndex = 77;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 15F);
+            label21.Location = new Point(15, 504);
+            label21.Name = "label21";
+            label21.Size = new Size(97, 28);
+            label21.TabIndex = 76;
+            label21.Text = "Due Date:";
             // 
             // txtSearchLastName
             // 
@@ -686,19 +735,19 @@ namespace Library_System_V3
             panelReturn.Controls.Add(label15);
             panelReturn.Controls.Add(txtRtnMemId);
             panelReturn.Controls.Add(label14);
-            panelReturn.Controls.Add(button1);
+            panelReturn.Controls.Add(btnReturnBk);
             panelReturn.Controls.Add(txtRtnBk);
             panelReturn.Controls.Add(label9);
             panelReturn.Controls.Add(label7);
             panelReturn.Controls.Add(ReturnDataGridView);
             panelReturn.Controls.Add(txtRtnLastName);
             panelReturn.Controls.Add(label10);
-            panelReturn.Controls.Add(label11);
+            panelReturn.Controls.Add(dueDateLabelChecker);
             panelReturn.Controls.Add(txtRtnBrwId);
             panelReturn.Controls.Add(label13);
-            panelReturn.Location = new Point(1326, 192);
+            panelReturn.Location = new Point(161, 56);
             panelReturn.Name = "panelReturn";
-            panelReturn.Size = new Size(192, 148);
+            panelReturn.Size = new Size(1134, 633);
             panelReturn.TabIndex = 70;
             // 
             // label17
@@ -786,15 +835,15 @@ namespace Library_System_V3
             label14.TabIndex = 80;
             label14.Text = "Member ID:";
             // 
-            // button1
+            // btnReturnBk
             // 
-            button1.Font = new Font("Segoe UI", 15F);
-            button1.Location = new Point(27, 552);
-            button1.Name = "button1";
-            button1.Size = new Size(188, 58);
-            button1.TabIndex = 79;
-            button1.Text = "Returned Book";
-            button1.UseVisualStyleBackColor = true;
+            btnReturnBk.Font = new Font("Segoe UI", 15F);
+            btnReturnBk.Location = new Point(27, 552);
+            btnReturnBk.Name = "btnReturnBk";
+            btnReturnBk.Size = new Size(188, 58);
+            btnReturnBk.TabIndex = 79;
+            btnReturnBk.Text = "Returned Book";
+            btnReturnBk.UseVisualStyleBackColor = true;
             // 
             // txtRtnBk
             // 
@@ -830,10 +879,10 @@ namespace Library_System_V3
             ReturnDataGridView.BackgroundColor = SystemColors.Control;
             ReturnDataGridView.BorderStyle = BorderStyle.None;
             ReturnDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ReturnDataGridView.Location = new Point(30, 48);
+            ReturnDataGridView.Location = new Point(21, 48);
             ReturnDataGridView.Name = "ReturnDataGridView";
             ReturnDataGridView.RowHeadersWidth = 51;
-            ReturnDataGridView.Size = new Size(1088, 309);
+            ReturnDataGridView.Size = new Size(1097, 309);
             ReturnDataGridView.TabIndex = 75;
             // 
             // txtRtnLastName
@@ -855,15 +904,15 @@ namespace Library_System_V3
             label10.TabIndex = 68;
             label10.Text = "Student Name: ";
             // 
-            // label11
+            // dueDateLabelChecker
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(241, 567);
-            label11.Name = "label11";
-            label11.Size = new Size(119, 28);
-            label11.TabIndex = 70;
-            label11.Text = "Date Today";
+            dueDateLabelChecker.AutoSize = true;
+            dueDateLabelChecker.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dueDateLabelChecker.Location = new Point(241, 567);
+            dueDateLabelChecker.Name = "dueDateLabelChecker";
+            dueDateLabelChecker.Size = new Size(119, 28);
+            dueDateLabelChecker.TabIndex = 70;
+            dueDateLabelChecker.Text = "Date Today";
             // 
             // txtRtnBrwId
             // 
@@ -896,7 +945,7 @@ namespace Library_System_V3
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Padding = new Padding(0, 120, 0, 0);
-            flowLayoutPanel1.Size = new Size(157, 752);
+            flowLayoutPanel1.Size = new Size(157, 697);
             flowLayoutPanel1.TabIndex = 1;
             // 
             // btnStudent
@@ -980,18 +1029,23 @@ namespace Library_System_V3
             // panelContent
             // 
             panelContent.Controls.Add(panelHistory);
-            panelContent.Controls.Add(panelBooks);
             panelContent.Controls.Add(panelReturn);
+            panelContent.Controls.Add(panelBorrow);
             panelContent.Controls.Add(panelCategory);
             panelContent.Controls.Add(panelStudent);
+            panelContent.Controls.Add(panelBooks);
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(0, 0);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(1605, 752);
+            panelContent.Size = new Size(1303, 697);
             panelContent.TabIndex = 2;
             // 
             // panelHistory
             // 
+            panelHistory.Controls.Add(btnPermanentDelete);
+            panelHistory.Controls.Add(label11);
+            panelHistory.Controls.Add(cbDataHistory);
+            panelHistory.Controls.Add(btnRetrieve);
             panelHistory.Controls.Add(dataGridView1);
             panelHistory.Controls.Add(btnClearFilter);
             panelHistory.Controls.Add(btnApplyFilter);
@@ -1004,10 +1058,49 @@ namespace Library_System_V3
             panelHistory.Controls.Add(label12);
             panelHistory.Controls.Add(cbFilterMemberId);
             panelHistory.Controls.Add(label5);
-            panelHistory.Location = new Point(1312, 18);
+            panelHistory.Location = new Point(161, 56);
             panelHistory.Name = "panelHistory";
-            panelHistory.Size = new Size(75, 158);
+            panelHistory.Size = new Size(1134, 633);
             panelHistory.TabIndex = 89;
+            // 
+            // btnPermanentDelete
+            // 
+            btnPermanentDelete.Font = new Font("Segoe UI", 15F);
+            btnPermanentDelete.Location = new Point(659, 152);
+            btnPermanentDelete.Name = "btnPermanentDelete";
+            btnPermanentDelete.Size = new Size(194, 44);
+            btnPermanentDelete.TabIndex = 15;
+            btnPermanentDelete.Text = "Permanently Delete";
+            btnPermanentDelete.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 15F);
+            label11.Location = new Point(796, 83);
+            label11.Name = "label11";
+            label11.Size = new Size(57, 28);
+            label11.TabIndex = 14;
+            label11.Text = "Data:";
+            // 
+            // cbDataHistory
+            // 
+            cbDataHistory.Font = new Font("Segoe UI", 15F);
+            cbDataHistory.FormattingEnabled = true;
+            cbDataHistory.Location = new Point(855, 77);
+            cbDataHistory.Name = "cbDataHistory";
+            cbDataHistory.Size = new Size(250, 36);
+            cbDataHistory.TabIndex = 13;
+            // 
+            // btnRetrieve
+            // 
+            btnRetrieve.Font = new Font("Segoe UI", 15F);
+            btnRetrieve.Location = new Point(451, 152);
+            btnRetrieve.Name = "btnRetrieve";
+            btnRetrieve.Size = new Size(194, 44);
+            btnRetrieve.TabIndex = 12;
+            btnRetrieve.Text = "Retrive Data";
+            btnRetrieve.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
@@ -1458,7 +1551,7 @@ namespace Library_System_V3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1605, 752);
+            ClientSize = new Size(1303, 697);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(headerPanel);
             Controls.Add(panelContent);
@@ -1571,10 +1664,10 @@ namespace Library_System_V3
         private ComboBox cbMonth;
         private Label labelBrwDate;
         private Panel panelReturn;
-        private Button button1;
+        private Button btnReturnBk;
         private Label label9;
         private DataGridView ReturnDataGridView;
-        private Label label11;
+        private Label dueDateLabelChecker;
         private TextBox txtRtnBk;
         private Label label7;
         private TextBox txtRtnLastName;
@@ -1609,9 +1702,17 @@ namespace Library_System_V3
         private Label studentLabelclicked;
         private TextBox txtSearchFirstName;
         private Label label23;
-        private Label label22;
+        private Label dateLabel;
         private TextBox txtSearchLastName;
         private Label label24;
         private TextBox txtBkAuthor;
+        private ComboBox cbYearDue;
+        private ComboBox cbDayDue;
+        private ComboBox cbMonthDue;
+        private Label label21;
+        private Label label11;
+        private ComboBox cbDataHistory;
+        private Button btnRetrieve;
+        private Button btnPermanentDelete;
     }
 }
