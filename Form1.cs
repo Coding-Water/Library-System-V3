@@ -611,6 +611,7 @@ namespace Library_System_V3
                 var dt = new DataTable();
                 da.Fill(dt);
                 ReturnDataGridView.DataSource = dt;
+                ReturnDataGridView.ReadOnly = true;
             }
             catch (Exception ex)
             {
@@ -1306,12 +1307,6 @@ namespace Library_System_V3
                 MessageBox.Show("Delete failed: " + ex.Message);
             }
         }
-
-       
-
-
-
-
         // STUDENTS: CLEAR
         private void btnClearBox_Click(object sender, EventArgs e)
         {
@@ -1640,13 +1635,6 @@ namespace Library_System_V3
             btnBkUpdate.Enabled = false;
             btnBkDelete.Enabled = false;
         }
-
-
-
-
-
-
-
         // GRID EVENTS
         // GRID STUDENTS: FILL TEXTBOXES
         private void studentDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1701,11 +1689,5 @@ namespace Library_System_V3
             btnBkUpdate.Enabled = true;
             btnBkDelete.Enabled = true;
         }
-
-        
-        
-        
-
-        
     }
 }
