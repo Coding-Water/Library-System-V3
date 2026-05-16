@@ -14,22 +14,33 @@ namespace Library_System_V3
             InitializeComponent();
             HideAllPanels();
 
-            // ✅ Wire student button events
+            // CRUD WIRE EVENTS
+            //STUDENTS
             btnAddStudent.Click += btnAddStudent_Click;
             btnUpdateStudent.Click += btnUpdateStudent_Click;
             btnDeleteStudent.Click += btnDeleteStudent_Click;
             btnClearBox.Click += btnClearBox_Click;
+            // CATEGORY
+            btnAddCat.Click += btnAddCat_Click;
+            btnUpdateCat.Click += btnUpdateCat_Click;
+            btnDeleteCat.Click += btnDeleteCat_Click;
+            btnClearCat.Click += btnClearCat_Click;
+            //BOOKS
+            btnBkAdd.Click += btnBkAdd_Click;
+            btnBkDelete.Click += btnBkDelete_Click;
+            btnBkUpdate.Click += btnBkUpdate_Click;
+            btnbkClear.Click += btnbkClear_Click;
 
-            // ✅ Wire grid click event (VERY IMPORTANT)
+            //Data Grid
             studentDataGridView.CellClick += studentDataGridView_CellClick;
+            catergoryDataGridView.CellClick += catergoryDataGridView_CellClick;
 
-            // ✅ Make RecordId always readonly
+            // ID READ ONLY
             txtRecordId.ReadOnly = true;
+            txtCategoryId.ReadOnly = true;
+            txtBkId.ReadOnly = true;
         }
-
-        // ----------------------------------------------------
         // PANEL NAVIGATION
-        // ----------------------------------------------------
         private void HideAllPanels()
         {
             panelStudent.Visible = false;
@@ -58,8 +69,8 @@ namespace Library_System_V3
         {
             HideAllPanels();
             panelBooks.Visible = true;
-
-            // Later: LoadBooks();
+            LoadBooks();
+            LoadCatergoryComboBox();
         }
 
         private void btnBrw_Click(object sender, EventArgs e)
@@ -79,10 +90,8 @@ namespace Library_System_V3
             HideAllPanels();
             panelHistory.Visible = true;
         }
-
-        // ----------------------------------------------------
-        // STUDENTS: LOAD DATA (GRID)
-        // ----------------------------------------------------
+        // LOAD EVENTS
+        // STUDENTS: LOAD DATA 
         private void LoadStudents()
         {
             string sql = @"
@@ -109,11 +118,7 @@ namespace Library_System_V3
                 MessageBox.Show("Error loading students: " + ex.Message);
             }
         }
-
-        // ----------------------------------------------------
         // CATEGORY: LOAD DATA (GRID)
-        // ----------------------------------------------------
-
         private void LoadCategories()
         {
             string sql = @"SELECT CategoryId, Category FROM dbo.Category ORDER BY CategoryId ;";
@@ -138,10 +143,65 @@ namespace Library_System_V3
                 MessageBox.Show("Error loading categories: " + ex.Message);
             }
         }
+        // BOOKS: LOAD DATA
+        private void LoadBooks()
+        {
+            string sql = @"
+                SELECT b.BookId, b.BookRefNum, b.Title, b.Author, c.CategoryId, b.AvailableCopies
+                FROM dbo.Books b
+                INNER JOIN dbo.Category c ON b.CategoryId = c.CategoryId
+                ORDER BY b.BookId ASC;";
+            try
+            {
+                using var con = new SqlConnection(cs);
+                using var da = new SqlDataAdapter(sql, con);
+                var dt = new DataTable();
+                da.Fill(dt);
+                booksDataGridView.DataSource = dt;
+                booksDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                booksDataGridView.MultiSelect = false;
+                booksDataGridView.ReadOnly = true;
+                booksDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading books: " + ex.Message);
+            }
+        }
+        // BOOKS: LOAD CATEGORY COMBOBOX
+        private void LoadCatergoryComboBox()
+        {
+            string sql = @"SELECT CategoryId, Category FROM dbo.Category ORDER BY CategoryId;";
+            try
+            {
+                using var con = new SqlConnection(cs);
+                using var da = new SqlDataAdapter(sql, con);
+                var dt = new DataTable();
+                da.Fill(dt);
+                comboBoxCat.DataSource = dt;
+                comboBoxCat.DisplayMember = "Category";
+                comboBoxCat.ValueMember = "CategoryId";
+                comboBoxCat.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading categories for combo box: " + ex.Message);
+            }
+        }
 
-        // ----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+        // BUTTON EVENTS
         // STUDENTS: ADD
-        // ----------------------------------------------------
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
             // basic validation
@@ -154,8 +214,6 @@ namespace Library_System_V3
                 MessageBox.Show("Student ID, First Name, Last Name, Email, and Contact are required.");
                 return;
             }
-
-            // ✅ NO DateJoined here (DB default can handle it)
             string sql = @"
                 INSERT INTO dbo.Students (StudentID, FirstName, LastName, MiddleName, Email, ContactNum)
                 VALUES (@StudentID, @FirstName, @LastName, @MiddleName, @Email, @ContactNum);";
@@ -187,10 +245,7 @@ namespace Library_System_V3
                 MessageBox.Show("Add failed: " + ex.Message);
             }
         }
-
-        // ----------------------------------------------------
         // STUDENTS: UPDATE
-        // ----------------------------------------------------
         private void btnUpdateStudent_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtRecordId.Text, out int recordId))
@@ -209,7 +264,6 @@ namespace Library_System_V3
                 return;
             }
 
-            // ✅ FIXED: includes @RecordID parameter
             string sql = @"
                 UPDATE dbo.Students
                 SET StudentID=@StudentID,
@@ -248,10 +302,7 @@ namespace Library_System_V3
                 MessageBox.Show("Update failed: " + ex.Message);
             }
         }
-
-        // ----------------------------------------------------
         // STUDENTS: DELETE
-        // ----------------------------------------------------
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtRecordId.Text, out int recordId))
@@ -283,10 +334,7 @@ namespace Library_System_V3
                 MessageBox.Show("Delete failed: " + ex.Message);
             }
         }
-
-        // ----------------------------------------------------
         // STUDENTS: CLEAR
-        // ----------------------------------------------------
         private void btnClearBox_Click(object sender, EventArgs e)
         {
             ClearStudentFields();
@@ -305,27 +353,9 @@ namespace Library_System_V3
             txtRecordId.ReadOnly = true;
         }
 
-        // ----------------------------------------------------
-        // GRID CLICK: FILL TEXTBOXES
-        // ----------------------------------------------------
-        private void studentDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            var row = studentDataGridView.Rows[e.RowIndex];
-
-            txtRecordId.Text = row.Cells["RecordID"].Value?.ToString();
-            txtStudentId.Text = row.Cells["StudentID"].Value?.ToString();
-            txtFirstName.Text = row.Cells["FirstName"].Value?.ToString();
-            txtLastName.Text = row.Cells["LastName"].Value?.ToString();
-            txtMiddleName.Text = row.Cells["MiddleName"].Value?.ToString();
-            txtEmail.Text = row.Cells["Email"].Value?.ToString();
-            txtContact.Text = row.Cells["ContactNum"].Value?.ToString();
-        }
-
         private void btnAddCat_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txtCategory.Text))
+            if (string.IsNullOrWhiteSpace(txtCategory.Text))
             {
                 MessageBox.Show("Category name is required.");
                 return;
@@ -357,7 +387,7 @@ namespace Library_System_V3
         private void btnDeleteCat_Click(object sender, EventArgs e)
         {
 
-            if(!int.TryParse(txtCategoryId.Text, out int categoryId))
+            if (!int.TryParse(txtCategoryId.Text, out int categoryId))
             {
                 MessageBox.Show("Select a Catergory from the table first.");
                 return;
@@ -436,10 +466,166 @@ namespace Library_System_V3
         private void ClearCategotyFields()
         {
             txtCategory.Clear();
-
             txtCategoryId.ReadOnly = true;
         }
 
+        private void btnBkAdd_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(txtBkRef.Text) ||
+                string.IsNullOrWhiteSpace(txtBkTitle.Text) ||
+                string.IsNullOrWhiteSpace(txtBkAuthor.Text) ||
+                comboBoxCat.SelectedIndex < 0 ||
+                string.IsNullOrWhiteSpace(txtBkCopies.Text))
+    
+                {
+                    MessageBox.Show("Fill all required fields.");
+                return;
+            }
+
+
+            if (!int.TryParse(txtBkCopies.Text, out int copies) || copies < 0)
+            {
+                MessageBox.Show("Copies must be ≥ 0.");
+                return;
+            }
+            
+            string sql = @"
+                INSERT INTO dbo.Books (BookRefNum, Title, Author, CategoryId, AvailableCopies)
+                VALUES (@BookRefNum, @Title, @Author, @CategoryId, @AvailableCopies);";
+
+            try
+            {
+                using var con = new SqlConnection(cs);
+                using var cmd = new SqlCommand(sql, con);
+
+                cmd.Parameters.AddWithValue("@BookRefNum", txtBkRef.Text.Trim());
+                cmd.Parameters.AddWithValue("@Title", txtBkTitle.Text.Trim());
+                cmd.Parameters.AddWithValue("@Author", txtBkAuthor.Text.Trim());
+                cmd.Parameters.AddWithValue("@CategoryId", comboBoxCat.SelectedValue);
+                cmd.Parameters.AddWithValue("@AvailableCopies", copies);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Book Added!");
+                LoadBooks();
+                ClearBookFields();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Add failed: " + ex.Message);
+            }
+        }
+
+        private void btnBkDelete_Click(object sender, EventArgs e)
+        {
+
+
+            if (!int.TryParse(txtBkId.Text, out int id))
+            {
+                MessageBox.Show("Select a book first.");
+                return;
+            }
+
+            if (MessageBox.Show("Delete this book?", "Confirm", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            string sql = "DELETE FROM Books WHERE BookID=@ID";
+
+            using var con = new SqlConnection(cs);
+            using var cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("@ID", id);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Book Deleted!");
+            LoadBooks();
+            ClearBookFields();
+        }
+
+        private void btnBkUpdate_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(txtBkId.Text, out int id))
+            {
+                MessageBox.Show("Select a book first.");
+                return;
+            }
+
+            string sql = @"UPDATE Books SET
+                        BookRefNum=@Ref,
+                        Title=@Title,
+                        Author=@Author,
+                        CategoryId=@Cat,
+                        AvailableCopies=@Copies
+                        WHERE BookID=@ID";
+
+            using var con = new SqlConnection(cs);
+            using var cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("@ID", id);
+            cmd.Parameters.AddWithValue("@Ref", txtBkRef.Text);
+            cmd.Parameters.AddWithValue("@Title", txtBkTitle.Text);
+            cmd.Parameters.AddWithValue("@Author",
+                string.IsNullOrWhiteSpace(txtBkAuthor.Text) ? (object)DBNull.Value : txtBkAuthor.Text);
+            cmd.Parameters.AddWithValue("@Cat", comboBoxCat.SelectedValue);
+            cmd.Parameters.AddWithValue("@Copies", int.Parse(txtBkCopies.Text));
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Book Updated!");
+
+            LoadBooks();
+            ClearBookFields();
+        }
+
+        private void btnbkClear_Click(object sender, EventArgs e)
+        {
+            ClearBookFields();
+        }
+        private void ClearBookFields()
+        {
+            txtBkId.Clear();
+            txtBkRef.Clear();
+            txtBkTitle.Clear();
+            txtBkAuthor.Clear();
+            txtBkCopies.Clear();
+            comboBoxCat.SelectedIndex = -1;
+
+            btnBkAdd.Enabled = true;
+            btnBkUpdate.Enabled = false;
+            btnBkDelete.Enabled = false;
+        }
+
+
+
+
+
+
+
+        // GRID EVENTS
+        // GRID STUDENTS: FILL TEXTBOXES
+        private void studentDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = studentDataGridView.Rows[e.RowIndex];
+
+            txtRecordId.Text = row.Cells["RecordID"].Value?.ToString();
+            txtStudentId.Text = row.Cells["StudentID"].Value?.ToString();
+            txtFirstName.Text = row.Cells["FirstName"].Value?.ToString();
+            txtLastName.Text = row.Cells["LastName"].Value?.ToString();
+            txtMiddleName.Text = row.Cells["MiddleName"].Value?.ToString();
+            txtEmail.Text = row.Cells["Email"].Value?.ToString();
+            txtContact.Text = row.Cells["ContactNum"].Value?.ToString();
+
+            btnAddStudent.Enabled = false;
+            btnUpdateStudent.Enabled = true;
+            btnDeleteStudent.Enabled = true;
+        }
+        // GRID CATEGORY: FILL TEXTBOXES
         private void catergoryDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -448,6 +634,31 @@ namespace Library_System_V3
 
             txtCategoryId.Text = row.Cells["CategoryId"].Value?.ToString();
             txtCategory.Text = row.Cells["Category"].Value?.ToString();
+
+            btnAddCat.Enabled = false;
+            btnUpdateCat.Enabled = true;
+            btnDeleteCat.Enabled = true;
         }
+
+
+        private void booksDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = booksDataGridView.Rows[e.RowIndex];
+
+            txtBkId.Text = row.Cells["BookID"].Value.ToString();
+            txtBkRef.Text = row.Cells["BookRefNum"].Value.ToString();
+            txtBkTitle.Text = row.Cells["Title"].Value.ToString();
+            txtBkAuthor.Text = row.Cells["Author"].Value?.ToString();
+            txtBkCopies.Text = row.Cells["AvailableCopies"].Value.ToString();
+
+            comboBoxCat.SelectedValue = row.Cells["CategoryId"].Value;
+
+            btnBkAdd.Enabled = false;
+            btnBkUpdate.Enabled = true;
+            btnBkDelete.Enabled = true;
+        }
+
     }
 }
