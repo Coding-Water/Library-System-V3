@@ -103,6 +103,7 @@ namespace Library_System_V3
             txtRtnBrwId = new TextBox();
             label13 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            pictureBox1 = new PictureBox();
             btnStudent = new Button();
             btnCat = new Button();
             btnBooks = new Button();
@@ -166,6 +167,7 @@ namespace Library_System_V3
             panelReturn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ReturnDataGridView).BeginInit();
             flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelContent.SuspendLayout();
             panelHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -935,6 +937,7 @@ namespace Library_System_V3
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.Controls.Add(pictureBox1);
             flowLayoutPanel1.Controls.Add(btnStudent);
             flowLayoutPanel1.Controls.Add(btnCat);
             flowLayoutPanel1.Controls.Add(btnBooks);
@@ -944,15 +947,26 @@ namespace Library_System_V3
             flowLayoutPanel1.Dock = DockStyle.Left;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(0, 120, 0, 0);
+            flowLayoutPanel1.Padding = new Padding(0, 10, 0, 0);
             flowLayoutPanel1.Size = new Size(157, 697);
             flowLayoutPanel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.InitialImage = (Image)resources.GetObject("pictureBox1.InitialImage");
+            pictureBox1.Location = new Point(3, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(152, 128);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
             // 
             // btnStudent
             // 
             btnStudent.Image = (Image)resources.GetObject("btnStudent.Image");
             btnStudent.ImageAlign = ContentAlignment.MiddleLeft;
-            btnStudent.Location = new Point(3, 123);
+            btnStudent.Location = new Point(3, 147);
             btnStudent.Name = "btnStudent";
             btnStudent.Padding = new Padding(25, 0, 0, 0);
             btnStudent.Size = new Size(152, 53);
@@ -965,7 +979,7 @@ namespace Library_System_V3
             // 
             btnCat.Image = (Image)resources.GetObject("btnCat.Image");
             btnCat.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCat.Location = new Point(3, 182);
+            btnCat.Location = new Point(3, 206);
             btnCat.Name = "btnCat";
             btnCat.Padding = new Padding(25, 0, 0, 0);
             btnCat.Size = new Size(152, 53);
@@ -978,7 +992,7 @@ namespace Library_System_V3
             // 
             btnBooks.Image = (Image)resources.GetObject("btnBooks.Image");
             btnBooks.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBooks.Location = new Point(3, 241);
+            btnBooks.Location = new Point(3, 265);
             btnBooks.Name = "btnBooks";
             btnBooks.Padding = new Padding(25, 0, 0, 0);
             btnBooks.Size = new Size(152, 53);
@@ -991,7 +1005,7 @@ namespace Library_System_V3
             // 
             btnBrw.Image = (Image)resources.GetObject("btnBrw.Image");
             btnBrw.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBrw.Location = new Point(3, 300);
+            btnBrw.Location = new Point(3, 324);
             btnBrw.Name = "btnBrw";
             btnBrw.Padding = new Padding(25, 0, 0, 0);
             btnBrw.Size = new Size(152, 53);
@@ -1004,7 +1018,7 @@ namespace Library_System_V3
             // 
             btnRtn.Image = (Image)resources.GetObject("btnRtn.Image");
             btnRtn.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRtn.Location = new Point(3, 359);
+            btnRtn.Location = new Point(3, 383);
             btnRtn.Name = "btnRtn";
             btnRtn.Padding = new Padding(25, 0, 0, 0);
             btnRtn.Size = new Size(152, 53);
@@ -1017,7 +1031,7 @@ namespace Library_System_V3
             // 
             btnHis.Image = (Image)resources.GetObject("btnHis.Image");
             btnHis.ImageAlign = ContentAlignment.MiddleLeft;
-            btnHis.Location = new Point(3, 418);
+            btnHis.Location = new Point(3, 442);
             btnHis.Name = "btnHis";
             btnHis.Padding = new Padding(25, 0, 0, 0);
             btnHis.Size = new Size(152, 53);
@@ -1569,6 +1583,7 @@ namespace Library_System_V3
             panelReturn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ReturnDataGridView).EndInit();
             flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelContent.ResumeLayout(false);
             panelHistory.ResumeLayout(false);
             panelHistory.PerformLayout();
@@ -1714,5 +1729,6 @@ namespace Library_System_V3
         private ComboBox cbDataHistory;
         private Button btnRetrieve;
         private Button btnPermanentDelete;
+        private PictureBox pictureBox1;
     }
 }

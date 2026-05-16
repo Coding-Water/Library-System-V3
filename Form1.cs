@@ -7,7 +7,7 @@ namespace Library_System_V3
     {
         // ✅ One connection string for the whole form
         private readonly string cs =
-           // @"Server=.\SQLEXPRESS;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
+         // @"Server=.\SQLEXPRESS;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
          @"Server=DESKTOP-INU2S9E\MSSQLSERVER01;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
         private int? _selectedStudentRecordId = null;
 
@@ -16,7 +16,7 @@ namespace Library_System_V3
             InitializeComponent();
             HideAllPanels();
 
-            
+
             //Data Grid
             studentDataGridView.CellClick += studentDataGridView_CellClick;
             booksDataGridView.CellClick += booksDataGridView_CellClick;
@@ -193,7 +193,7 @@ namespace Library_System_V3
                 booksDataGridView.MultiSelect = false;
                 booksDataGridView.ReadOnly = true;
                 booksDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                
+
             }
             catch (Exception ex)
             {
@@ -234,15 +234,15 @@ namespace Library_System_V3
                 using var da = new SqlDataAdapter(sql, con);
                 var dt = new DataTable();
                 da.Fill(dt);
-                
+
                 // Detach event before binding to prevent cascading queries on load
                 cbSelectCat.SelectedIndexChanged -= cbSelectCat_SelectedIndexChanged;
-                
+
                 cbSelectCat.DataSource = dt;
                 cbSelectCat.DisplayMember = "Category";
                 cbSelectCat.ValueMember = "CategoryId";
                 cbSelectCat.SelectedIndex = -1;
-                
+
                 cbSelectCat.SelectedIndexChanged += cbSelectCat_SelectedIndexChanged;
             }
             catch (Exception ex)
@@ -258,7 +258,7 @@ namespace Library_System_V3
             // Populate Month
             if (cbMonth.Items.Count == 0)
             {
-                for (int i = 1; i <= 12; i++) 
+                for (int i = 1; i <= 12; i++)
                 {
                     string m = i.ToString("D2");
                     cbMonth.Items.Add(m);
@@ -268,7 +268,7 @@ namespace Library_System_V3
             // Populate Day
             if (cbDay.Items.Count == 0)
             {
-                for (int i = 1; i <= 31; i++) 
+                for (int i = 1; i <= 31; i++)
                 {
                     string d = i.ToString("D2");
                     cbDay.Items.Add(d);
@@ -279,7 +279,7 @@ namespace Library_System_V3
             if (cbYear.Items.Count == 0)
             {
                 int currentYear = DateTime.Now.Year;
-                for (int i = currentYear - 5; i <= currentYear + 5; i++) 
+                for (int i = currentYear - 5; i <= currentYear + 5; i++)
                 {
                     cbYear.Items.Add(i);
                     cbYearDue.Items.Add(i);
@@ -307,7 +307,7 @@ namespace Library_System_V3
             txtSearchLastName.Clear();
             studentLabelclicked.Text = "Name of selected will pop here in this label";
             _selectedStudentRecordId = null;
-            
+
             studentListDataGridView.DataSource = null;
 
             cbSelectCat.SelectedIndex = -1;
@@ -404,7 +404,7 @@ namespace Library_System_V3
         private void cbSelectCat_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbSelectCat.SelectedValue == null) return;
-            
+
             if (!int.TryParse(cbSelectCat.SelectedValue.ToString(), out int catId))
                 return;
 
@@ -430,7 +430,7 @@ namespace Library_System_V3
                 cbSelectBook.DisplayMember = "Title";
                 cbSelectBook.ValueMember = "BookId";
                 cbSelectBook.SelectedIndex = -1;
-                
+
                 txtShowBookId.Clear();
                 txtShowTtitle.Clear();
                 txtShowAuth.Clear();
@@ -501,7 +501,7 @@ namespace Library_System_V3
                 MessageBox.Show("No copies available for the selected book.");
                 return;
             }
-            
+
             if (cbMonth.SelectedItem == null || cbDay.SelectedItem == null || cbYear.SelectedItem == null)
             {
                 MessageBox.Show("Please select a valid Borrow Date.");
@@ -519,7 +519,7 @@ namespace Library_System_V3
                 MessageBox.Show("Invalid Borrow Date.");
                 return;
             }
-            
+
             string DueDateStr = $"{cbYearDue.SelectedItem}-{cbMonthDue.SelectedItem}-{cbDayDue.SelectedItem}";
             if (!DateTime.TryParse(DueDateStr, out DateTime DueDate))
             {
@@ -532,7 +532,7 @@ namespace Library_System_V3
             string insertSql = @"
                 INSERT INTO dbo.BorrowRecords (RecordID, BookID, BorrowDate, DueDate)
                 VALUES (@RecordID, @BookID, @BorrowDate, @DueDate);";
-            
+
             string updateSql = @"
                 UPDATE dbo.Books 
                 SET AvailableCopies = AvailableCopies - 1 
@@ -712,7 +712,7 @@ namespace Library_System_V3
 
                     ClearReturnPanel();
                     LoadReturnRecords();
-                    LoadBooks(); // Refresh Books panel data grid behind the scenes
+                    LoadBooks(); //refresh 
                 }
                 catch (Exception ex)
                 {
@@ -1689,5 +1689,7 @@ namespace Library_System_V3
             btnBkUpdate.Enabled = true;
             btnBkDelete.Enabled = true;
         }
+
+        
     }
 }
