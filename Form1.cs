@@ -34,11 +34,13 @@ namespace Library_System_V3
             //Data Grid
             studentDataGridView.CellClick += studentDataGridView_CellClick;
             catergoryDataGridView.CellClick += catergoryDataGridView_CellClick;
+            booksDataGridView.CellClick += booksDataGridView_CellClick;
 
             // ID READ ONLY
             txtRecordId.ReadOnly = true;
             txtCategoryId.ReadOnly = true;
             txtBkId.ReadOnly = true;
+            
         }
         // PANEL NAVIGATION
         private void HideAllPanels()
@@ -147,7 +149,7 @@ namespace Library_System_V3
         private void LoadBooks()
         {
             string sql = @"
-                SELECT b.BookId, b.BookRefNum, b.Title, b.Author, c.CategoryId, b.AvailableCopies
+                SELECT b.BookId, b.BookRefNum, b.Title, b.Author, b.CategoryId, c.Category, b.AvailableCopies
                 FROM dbo.Books b
                 INNER JOIN dbo.Category c ON b.CategoryId = c.CategoryId
                 ORDER BY b.BookId ASC;";
@@ -162,6 +164,9 @@ namespace Library_System_V3
                 booksDataGridView.MultiSelect = false;
                 booksDataGridView.ReadOnly = true;
                 booksDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                booksDataGridView.Columns["CategoryId"].Visible = false;
+                
             }
             catch (Exception ex)
             {
@@ -182,6 +187,8 @@ namespace Library_System_V3
                 comboBoxCat.DisplayMember = "Category";
                 comboBoxCat.ValueMember = "CategoryId";
                 comboBoxCat.SelectedIndex = -1;
+
+
             }
             catch (Exception ex)
             {
@@ -652,9 +659,10 @@ namespace Library_System_V3
             txtBkTitle.Text = row.Cells["Title"].Value.ToString();
             txtBkAuthor.Text = row.Cells["Author"].Value?.ToString();
             txtBkCopies.Text = row.Cells["AvailableCopies"].Value.ToString();
-
+            
             comboBoxCat.SelectedValue = row.Cells["CategoryId"].Value;
 
+            
             btnBkAdd.Enabled = false;
             btnBkUpdate.Enabled = true;
             btnBkDelete.Enabled = true;
