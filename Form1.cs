@@ -9,6 +9,13 @@ namespace Library_System_V3
         private readonly string cs =
             @"Server=.\SQLEXPRESS;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
+        // ✅ Stores selected student RecordID (used in BorrowRecords)
+        private int selectedMemberId = -1;
+
+        // ✅ Stores selected BookID
+        private int selectedBookId = -1;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -30,17 +37,30 @@ namespace Library_System_V3
             btnBkDelete.Click += btnBkDelete_Click;
             btnBkUpdate.Click += btnBkUpdate_Click;
             btnbkClear.Click += btnbkClear_Click;
+   
+
+            //BORROW
+            btnSearch.Click += btnSearch_Click;
+            btnBrwBook.Click += btnBrwBook_Click;
+            cbSelectCat.SelectedIndexChanged += cbSelectCat_SelectedIndexChanged;
+            cbSelectBook.SelectedIndexChanged += cbSelectBook_SelectedIndexChanged;
+
 
             //Data Grid
             studentDataGridView.CellClick += studentDataGridView_CellClick;
             catergoryDataGridView.CellClick += catergoryDataGridView_CellClick;
-            booksDataGridView.CellClick += booksDataGridView_CellClick;
+            studentListDataGridView.CellClick += studentListDataGridView_CellClick;
 
             // ID READ ONLY
             txtRecordId.ReadOnly = true;
             txtCategoryId.ReadOnly = true;
             txtBkId.ReadOnly = true;
+
+
+           
+           
             
+
         }
         // PANEL NAVIGATION
         private void HideAllPanels()
@@ -79,6 +99,7 @@ namespace Library_System_V3
         {
             HideAllPanels();
             panelBorrow.Visible = true;
+            LoadBorrowCategory();
         }
 
         private void btnRtn_Click(object sender, EventArgs e)
@@ -149,7 +170,7 @@ namespace Library_System_V3
         private void LoadBooks()
         {
             string sql = @"
-                SELECT b.BookId, b.BookRefNum, b.Title, b.Author, b.CategoryId, c.Category, b.AvailableCopies
+                SELECT b.BookId, b.BookRefNum, b.Title, b.Author, c.CategoryId, b.AvailableCopies
                 FROM dbo.Books b
                 INNER JOIN dbo.Category c ON b.CategoryId = c.CategoryId
                 ORDER BY b.BookId ASC;";
@@ -164,15 +185,14 @@ namespace Library_System_V3
                 booksDataGridView.MultiSelect = false;
                 booksDataGridView.ReadOnly = true;
                 booksDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                booksDataGridView.Columns["CategoryId"].Visible = false;
-                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading books: " + ex.Message);
             }
         }
+
+
         // BOOKS: LOAD CATEGORY COMBOBOX
         private void LoadCatergoryComboBox()
         {
@@ -187,12 +207,71 @@ namespace Library_System_V3
                 comboBoxCat.DisplayMember = "Category";
                 comboBoxCat.ValueMember = "CategoryId";
                 comboBoxCat.SelectedIndex = -1;
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading categories for combo box: " + ex.Message);
+            }
+        }
+        // ✅ LOAD CATEGORY DROPDOWN (BORROW PANEL)
+        private void LoadBorrowCategory()
+        {
+            string sql = "SELECT CategoryID, Category FROM Category";
+
+            using var con = new SqlConnection(cs);
+            using var da = new SqlDataAdapter(sql, con);
+            var dt = new DataTable();
+            da.Fill(dt);
+
+            cbSelectCat.DataSource = dt;
+            cbSelectCat.DisplayMember = "Category";
+            cbSelectCat.ValueMember = "CategoryID";
+        }
+
+        private void cbSelectCat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbSelectCat.SelectedIndex < 0) return;
+
+            string sql = "SELECT BookID, Title FROM Books WHERE CategoryID = @cat";
+
+            using var con = new SqlConnection(cs);
+            using var cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("@cat", cbSelectCat.SelectedValue);
+
+            using var da = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
+            da.Fill(dt);
+
+            cbSelectBook.DataSource = dt;
+            cbSelectBook.DisplayMember = "Title";
+            cbSelectBook.ValueMember = "BookID";
+        }
+
+        private void cbSelectBook_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbSelectBook.SelectedIndex < 0) return;
+
+            string sql = @"SELECT BookID, Title, Author, AvailableCopies
+                   FROM Books WHERE BookID = @id";
+
+            using var con = new SqlConnection(cs);
+            using var cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("@id", cbSelectBook.SelectedValue);
+
+            con.Open();
+            using var dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                selectedBookId = Convert.ToInt32(dr["BookID"]);
+
+                txtShowBookId.Text = dr["BookID"].ToString();
+                txtShowTtitle.Text = dr["Title"].ToString();
+                txtShowAuth.Text = dr["Author"].ToString();
+
+                labelAvailCopyShow.Text = dr["AvailableCopies"].ToString();
             }
         }
 
@@ -341,6 +420,34 @@ namespace Library_System_V3
                 MessageBox.Show("Delete failed: " + ex.Message);
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string sql = @"
+        SELECT RecordID, StudentID, FirstName, LastName 
+        FROM Students
+        WHERE 
+            (@sid = '' OR StudentID LIKE '%' + @sid + '%') AND
+            (@fname = '' OR FirstName LIKE '%' + @fname + '%') AND
+            (@lname = '' OR LastName LIKE '%' + @lname + '%')";
+
+            using var con = new SqlConnection(cs);
+            using var cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("@sid", txtSearchStudentId.Text.Trim());
+            cmd.Parameters.AddWithValue("@fname", txtSearchFirstName.Text.Trim());
+            cmd.Parameters.AddWithValue("@lname", txtSearchLastName.Text.Trim());
+
+            using var da = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
+            da.Fill(dt);
+
+            studentListDataGridView.DataSource = dt;
+        }
+
+
+
+
         // STUDENTS: CLEAR
         private void btnClearBox_Click(object sender, EventArgs e)
         {
@@ -478,14 +585,14 @@ namespace Library_System_V3
 
         private void btnBkAdd_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txtBkRef.Text) ||
+            if (string.IsNullOrWhiteSpace(txtBkRef.Text) ||
                 string.IsNullOrWhiteSpace(txtBkTitle.Text) ||
                 string.IsNullOrWhiteSpace(txtBkAuthor.Text) ||
                 comboBoxCat.SelectedIndex < 0 ||
                 string.IsNullOrWhiteSpace(txtBkCopies.Text))
-    
-                {
-                    MessageBox.Show("Fill all required fields.");
+
+            {
+                MessageBox.Show("Fill all required fields.");
                 return;
             }
 
@@ -495,7 +602,7 @@ namespace Library_System_V3
                 MessageBox.Show("Copies must be ≥ 0.");
                 return;
             }
-            
+
             string sql = @"
                 INSERT INTO dbo.Books (BookRefNum, Title, Author, CategoryId, AvailableCopies)
                 VALUES (@BookRefNum, @Title, @Author, @CategoryId, @AvailableCopies);";
@@ -659,14 +766,94 @@ namespace Library_System_V3
             txtBkTitle.Text = row.Cells["Title"].Value.ToString();
             txtBkAuthor.Text = row.Cells["Author"].Value?.ToString();
             txtBkCopies.Text = row.Cells["AvailableCopies"].Value.ToString();
-            
-            comboBoxCat.SelectedValue = row.Cells["CategoryId"].Value;
 
-            
+            comboBoxCat.SelectedValue = row.Cells["Category"].Value;
+
             btnBkAdd.Enabled = false;
             btnBkUpdate.Enabled = true;
             btnBkDelete.Enabled = true;
         }
 
+        private void studentListDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = studentListDataGridView.Rows[e.RowIndex];
+
+            // ✅ Save selected student's RecordID
+            selectedMemberId = Convert.ToInt32(row.Cells["RecordID"].Value);
+
+            // ✅ Show student name in label
+            string fname = row.Cells["FirstName"].Value.ToString();
+            string lname = row.Cells["LastName"].Value.ToString();
+            studentLabelclicked.Text = fname + " " + lname;
+        }
+
+        private void btnBrwBook_Click(object sender, EventArgs e)
+        {
+
+            // ✅ Validate student selected
+            if (selectedMemberId == -1)
+            {
+                MessageBox.Show("Select a student first.");
+                return;
+            }
+
+            // ✅ Validate book selected
+            if (selectedBookId == -1)
+            {
+                MessageBox.Show("Select a book.");
+                return;
+            }
+
+            int copies = int.Parse(labelAvailCopyShow.Text);
+
+            if (copies <= 0)
+            {
+                MessageBox.Show("No copies available.");
+                return;
+            }
+
+            // ✅ Build date
+            string date = cbYear.Text + "-" + cbMonth.Text + "-" + cbDay.Text;
+
+            string insertSql = @"INSERT INTO BorrowRecords
+                                (RecordID, BookID, BorrowDate)
+                                VALUES (@mid, @bid, @date)";
+
+            string updateSql = @"UPDATE Books
+                                SET AvailableCopies = AvailableCopies - 1
+                                WHERE BookID = @bid";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            var tran = con.BeginTransaction();
+
+            try
+            {
+                using var cmd1 = new SqlCommand(insertSql, con, tran);
+                cmd1.Parameters.AddWithValue("@mid", selectedMemberId);
+                cmd1.Parameters.AddWithValue("@bid", selectedBookId);
+                cmd1.Parameters.AddWithValue("@date", date);
+                cmd1.ExecuteNonQuery();
+
+                using var cmd2 = new SqlCommand(updateSql, con, tran);
+                cmd2.Parameters.AddWithValue("@bid", selectedBookId);
+                cmd2.ExecuteNonQuery();
+
+                tran.Commit();
+
+                MessageBox.Show("Book Borrowed!");
+
+                cbSelectBook_SelectedIndexChanged(null, null); // refresh copies
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+        }
     }
 }
