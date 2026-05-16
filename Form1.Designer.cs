@@ -345,7 +345,7 @@ namespace Library_System_V3
             btnBrwBook.TabIndex = 65;
             btnBrwBook.Text = "Borrow Book";
             btnBrwBook.UseVisualStyleBackColor = true;
-            btnBrwBook.Click += btnBrwBook_Click;
+    
             // 
             // labelAvailCopyShow
             // 
