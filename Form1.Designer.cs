@@ -33,6 +33,23 @@ namespace Library_System_V3
             headerLabel = new Label();
             label22 = new Label();
             panelBooks = new Panel();
+            labelBkAuth = new Label();
+            txtBkTitle = new TextBox();
+            labelBkTitle = new Label();
+            comboBoxCat = new ComboBox();
+            labelBkCat = new Label();
+            txtBkCopies = new TextBox();
+            labelBkCopies = new Label();
+            txtBkRef = new TextBox();
+            labelBkRefNum = new Label();
+            txtBkId = new TextBox();
+            labelBkId = new Label();
+            btnBkUpdate = new Button();
+            btnbkClear = new Button();
+            btnBkDelete = new Button();
+            btnBkAdd = new Button();
+            booksDataGridView = new DataGridView();
+            txtBkAuthor = new TextBox();
             panelBorrow = new Panel();
             txtSearchLastName = new TextBox();
             label24 = new Label();
@@ -61,23 +78,6 @@ namespace Library_System_V3
             labelStundentBorrow = new Label();
             txtShowBookId = new TextBox();
             label6 = new Label();
-            labelBkAuth = new Label();
-            txtBkTitle = new TextBox();
-            labelBkTitle = new Label();
-            comboBoxCat = new ComboBox();
-            labelBkCat = new Label();
-            txtBkCopies = new TextBox();
-            labelBkCopies = new Label();
-            txtBkRef = new TextBox();
-            labelBkRefNum = new Label();
-            txtBkId = new TextBox();
-            labelBkId = new Label();
-            btnBkUpdate = new Button();
-            btnbkClear = new Button();
-            btnBkDelete = new Button();
-            btnBkAdd = new Button();
-            booksDataGridView = new DataGridView();
-            txtBkAuthor = new TextBox();
             panelReturn = new Panel();
             label17 = new Label();
             txtRtnCat = new TextBox();
@@ -152,9 +152,9 @@ namespace Library_System_V3
             labelRecord = new Label();
             headerPanel.SuspendLayout();
             panelBooks.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)booksDataGridView).BeginInit();
             panelBorrow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)studentListDataGridView).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)booksDataGridView).BeginInit();
             panelReturn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ReturnDataGridView).BeginInit();
             flowLayoutPanel1.SuspendLayout();
@@ -219,297 +219,6 @@ namespace Library_System_V3
             panelBooks.Name = "panelBooks";
             panelBooks.Size = new Size(1130, 628);
             panelBooks.TabIndex = 29;
-            // 
-            // panelBorrow
-            // 
-            panelBorrow.Controls.Add(txtSearchLastName);
-            panelBorrow.Controls.Add(label24);
-            panelBorrow.Controls.Add(txtSearchFirstName);
-            panelBorrow.Controls.Add(label23);
-            panelBorrow.Controls.Add(studentLabelclicked);
-            panelBorrow.Controls.Add(cbYear);
-            panelBorrow.Controls.Add(cbDay);
-            panelBorrow.Controls.Add(cbMonth);
-            panelBorrow.Controls.Add(labelBrwDate);
-            panelBorrow.Controls.Add(btnBrwBook);
-            panelBorrow.Controls.Add(labelAvailCopyShow);
-            panelBorrow.Controls.Add(cbSelectBook);
-            panelBorrow.Controls.Add(label8);
-            panelBorrow.Controls.Add(labelBkHeaderSelect);
-            panelBorrow.Controls.Add(studentListDataGridView);
-            panelBorrow.Controls.Add(btnSearch);
-            panelBorrow.Controls.Add(txtShowAuth);
-            panelBorrow.Controls.Add(label1);
-            panelBorrow.Controls.Add(txtShowTtitle);
-            panelBorrow.Controls.Add(label2);
-            panelBorrow.Controls.Add(cbSelectCat);
-            panelBorrow.Controls.Add(label3);
-            panelBorrow.Controls.Add(label4);
-            panelBorrow.Controls.Add(txtSearchStudentId);
-            panelBorrow.Controls.Add(labelStundentBorrow);
-            panelBorrow.Controls.Add(txtShowBookId);
-            panelBorrow.Controls.Add(label6);
-            panelBorrow.Location = new Point(0, 0);
-            panelBorrow.Name = "panelBorrow";
-            panelBorrow.Size = new Size(1133, 629);
-            panelBorrow.TabIndex = 46;
-            // 
-            // txtSearchLastName
-            // 
-            txtSearchLastName.Font = new Font("Segoe UI", 15F);
-            txtSearchLastName.Location = new Point(761, 14);
-            txtSearchLastName.Name = "txtSearchLastName";
-            txtSearchLastName.Size = new Size(196, 34);
-            txtSearchLastName.TabIndex = 75;
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 15F);
-            label24.Location = new Point(647, 17);
-            label24.Name = "label24";
-            label24.Size = new Size(107, 28);
-            label24.TabIndex = 74;
-            label24.Text = "Last Name:";
-            // 
-            // txtSearchFirstName
-            // 
-            txtSearchFirstName.Font = new Font("Segoe UI", 15F);
-            txtSearchFirstName.Location = new Point(445, 14);
-            txtSearchFirstName.Name = "txtSearchFirstName";
-            txtSearchFirstName.Size = new Size(196, 34);
-            txtSearchFirstName.TabIndex = 73;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 15F);
-            label23.Location = new Point(331, 19);
-            label23.Name = "label23";
-            label23.Size = new Size(110, 28);
-            label23.TabIndex = 72;
-            label23.Text = "First Name:";
-            // 
-            // studentLabelclicked
-            // 
-            studentLabelclicked.AutoSize = true;
-            studentLabelclicked.Location = new Point(20, 77);
-            studentLabelclicked.Name = "studentLabelclicked";
-            studentLabelclicked.Size = new Size(233, 15);
-            studentLabelclicked.TabIndex = 70;
-            studentLabelclicked.Text = "Name of selected will pop here in this label";
-            // 
-            // cbYear
-            // 
-            cbYear.Font = new Font("Segoe UI", 15F);
-            cbYear.FormattingEnabled = true;
-            cbYear.Location = new Point(262, 456);
-            cbYear.Name = "cbYear";
-            cbYear.Size = new Size(101, 36);
-            cbYear.TabIndex = 69;
-            // 
-            // cbDay
-            // 
-            cbDay.Font = new Font("Segoe UI", 15F);
-            cbDay.FormattingEnabled = true;
-            cbDay.Location = new Point(206, 456);
-            cbDay.Name = "cbDay";
-            cbDay.Size = new Size(46, 36);
-            cbDay.TabIndex = 68;
-            // 
-            // cbMonth
-            // 
-            cbMonth.Font = new Font("Segoe UI", 15F);
-            cbMonth.FormattingEnabled = true;
-            cbMonth.Location = new Point(146, 456);
-            cbMonth.Name = "cbMonth";
-            cbMonth.Size = new Size(50, 36);
-            cbMonth.TabIndex = 67;
-            // 
-            // labelBrwDate
-            // 
-            labelBrwDate.AutoSize = true;
-            labelBrwDate.Font = new Font("Segoe UI", 15F);
-            labelBrwDate.Location = new Point(15, 462);
-            labelBrwDate.Name = "labelBrwDate";
-            labelBrwDate.Size = new Size(125, 28);
-            labelBrwDate.TabIndex = 66;
-            labelBrwDate.Text = "Borrow Date:";
-            // 
-            // btnBrwBook
-            // 
-            btnBrwBook.Font = new Font("Segoe UI", 15F);
-            btnBrwBook.Location = new Point(15, 558);
-            btnBrwBook.Name = "btnBrwBook";
-            btnBrwBook.Size = new Size(188, 58);
-            btnBrwBook.TabIndex = 65;
-            btnBrwBook.Text = "Borrow Book";
-            btnBrwBook.UseVisualStyleBackColor = true;
-    
-            // 
-            // labelAvailCopyShow
-            // 
-            labelAvailCopyShow.AutoSize = true;
-            labelAvailCopyShow.Font = new Font("Segoe UI", 15F);
-            labelAvailCopyShow.Location = new Point(621, 469);
-            labelAvailCopyShow.Name = "labelAvailCopyShow";
-            labelAvailCopyShow.Size = new Size(23, 28);
-            labelAvailCopyShow.TabIndex = 64;
-            labelAvailCopyShow.Text = "0";
-            // 
-            // cbSelectBook
-            // 
-            cbSelectBook.Font = new Font("Segoe UI", 15F);
-            cbSelectBook.FormattingEnabled = true;
-            cbSelectBook.Location = new Point(109, 395);
-            cbSelectBook.Name = "cbSelectBook";
-            cbSelectBook.Size = new Size(325, 36);
-            cbSelectBook.TabIndex = 63;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 15F);
-            label8.Location = new Point(15, 403);
-            label8.Name = "label8";
-            label8.Size = new Size(61, 28);
-            label8.TabIndex = 62;
-            label8.Text = "Book:";
-            // 
-            // labelBkHeaderSelect
-            // 
-            labelBkHeaderSelect.AutoSize = true;
-            labelBkHeaderSelect.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelBkHeaderSelect.Location = new Point(15, 289);
-            labelBkHeaderSelect.Name = "labelBkHeaderSelect";
-            labelBkHeaderSelect.Size = new Size(123, 28);
-            labelBkHeaderSelect.TabIndex = 61;
-            labelBkHeaderSelect.Text = "Select Book";
-            // 
-            // studentListDataGridView
-            // 
-            studentListDataGridView.BackgroundColor = SystemColors.Control;
-            studentListDataGridView.BorderStyle = BorderStyle.None;
-            studentListDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            studentListDataGridView.Location = new Point(20, 114);
-            studentListDataGridView.Name = "studentListDataGridView";
-            studentListDataGridView.RowHeadersWidth = 51;
-            studentListDataGridView.Size = new Size(1093, 154);
-            studentListDataGridView.TabIndex = 60;
-            // 
-            // btnSearch
-            // 
-            btnSearch.Font = new Font("Segoe UI", 15F);
-            btnSearch.Location = new Point(968, 13);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(154, 37);
-            btnSearch.TabIndex = 59;
-            btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // txtShowAuth
-            // 
-            txtShowAuth.Font = new Font("Segoe UI", 15F);
-            txtShowAuth.Location = new Point(605, 421);
-            txtShowAuth.Name = "txtShowAuth";
-            txtShowAuth.ReadOnly = true;
-            txtShowAuth.Size = new Size(196, 34);
-            txtShowAuth.TabIndex = 58;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15F);
-            label1.Location = new Point(496, 427);
-            label1.Name = "label1";
-            label1.Size = new Size(77, 28);
-            label1.TabIndex = 57;
-            label1.Text = "Author:";
-            // 
-            // txtShowTtitle
-            // 
-            txtShowTtitle.Font = new Font("Segoe UI", 15F);
-            txtShowTtitle.Location = new Point(587, 375);
-            txtShowTtitle.Name = "txtShowTtitle";
-            txtShowTtitle.ReadOnly = true;
-            txtShowTtitle.Size = new Size(196, 34);
-            txtShowTtitle.TabIndex = 56;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 15F);
-            label2.Location = new Point(496, 381);
-            label2.Name = "label2";
-            label2.Size = new Size(53, 28);
-            label2.TabIndex = 55;
-            label2.Text = "Title:";
-            // 
-            // cbSelectCat
-            // 
-            cbSelectCat.Font = new Font("Segoe UI", 15F);
-            cbSelectCat.FormattingEnabled = true;
-            cbSelectCat.Location = new Point(124, 344);
-            cbSelectCat.Name = "cbSelectCat";
-            cbSelectCat.Size = new Size(188, 36);
-            cbSelectCat.TabIndex = 54;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 15F);
-            label3.Location = new Point(15, 352);
-            label3.Name = "label3";
-            label3.Size = new Size(103, 28);
-            label3.TabIndex = 53;
-            label3.Text = "Catergory:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 15F);
-            label4.Location = new Point(496, 470);
-            label4.Name = "label4";
-            label4.Size = new Size(123, 28);
-            label4.TabIndex = 51;
-            label4.Text = "Avail Copies:";
-            // 
-            // txtSearchStudentId
-            // 
-            txtSearchStudentId.Font = new Font("Segoe UI", 15F);
-            txtSearchStudentId.Location = new Point(129, 14);
-            txtSearchStudentId.Name = "txtSearchStudentId";
-            txtSearchStudentId.Size = new Size(196, 34);
-            txtSearchStudentId.TabIndex = 49;
-            // 
-            // labelStundentBorrow
-            // 
-            labelStundentBorrow.AutoSize = true;
-            labelStundentBorrow.Font = new Font("Segoe UI", 15F);
-            labelStundentBorrow.Location = new Point(15, 20);
-            labelStundentBorrow.Name = "labelStundentBorrow";
-            labelStundentBorrow.Size = new Size(108, 28);
-            labelStundentBorrow.TabIndex = 48;
-            labelStundentBorrow.Text = "Student ID:";
-            // 
-            // txtShowBookId
-            // 
-            txtShowBookId.Font = new Font("Segoe UI", 15F);
-            txtShowBookId.Location = new Point(587, 338);
-            txtShowBookId.Name = "txtShowBookId";
-            txtShowBookId.ReadOnly = true;
-            txtShowBookId.Size = new Size(196, 34);
-            txtShowBookId.TabIndex = 47;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 15F);
-            label6.Location = new Point(494, 344);
-            label6.Name = "label6";
-            label6.Size = new Size(85, 28);
-            label6.TabIndex = 46;
-            label6.Text = "Book ID:";
             // 
             // labelBkAuth
             // 
@@ -675,6 +384,296 @@ namespace Library_System_V3
             txtBkAuthor.Name = "txtBkAuthor";
             txtBkAuthor.Size = new Size(196, 34);
             txtBkAuthor.TabIndex = 47;
+            // 
+            // panelBorrow
+            // 
+            panelBorrow.Controls.Add(txtSearchLastName);
+            panelBorrow.Controls.Add(label24);
+            panelBorrow.Controls.Add(txtSearchFirstName);
+            panelBorrow.Controls.Add(label23);
+            panelBorrow.Controls.Add(studentLabelclicked);
+            panelBorrow.Controls.Add(cbYear);
+            panelBorrow.Controls.Add(cbDay);
+            panelBorrow.Controls.Add(cbMonth);
+            panelBorrow.Controls.Add(labelBrwDate);
+            panelBorrow.Controls.Add(btnBrwBook);
+            panelBorrow.Controls.Add(labelAvailCopyShow);
+            panelBorrow.Controls.Add(cbSelectBook);
+            panelBorrow.Controls.Add(label8);
+            panelBorrow.Controls.Add(labelBkHeaderSelect);
+            panelBorrow.Controls.Add(studentListDataGridView);
+            panelBorrow.Controls.Add(btnSearch);
+            panelBorrow.Controls.Add(txtShowAuth);
+            panelBorrow.Controls.Add(label1);
+            panelBorrow.Controls.Add(txtShowTtitle);
+            panelBorrow.Controls.Add(label2);
+            panelBorrow.Controls.Add(cbSelectCat);
+            panelBorrow.Controls.Add(label3);
+            panelBorrow.Controls.Add(label4);
+            panelBorrow.Controls.Add(txtSearchStudentId);
+            panelBorrow.Controls.Add(labelStundentBorrow);
+            panelBorrow.Controls.Add(txtShowBookId);
+            panelBorrow.Controls.Add(label6);
+            panelBorrow.Location = new Point(0, 2);
+            panelBorrow.Name = "panelBorrow";
+            panelBorrow.Size = new Size(1133, 629);
+            panelBorrow.TabIndex = 46;
+            // 
+            // txtSearchLastName
+            // 
+            txtSearchLastName.Font = new Font("Segoe UI", 15F);
+            txtSearchLastName.Location = new Point(761, 14);
+            txtSearchLastName.Name = "txtSearchLastName";
+            txtSearchLastName.Size = new Size(196, 34);
+            txtSearchLastName.TabIndex = 75;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 15F);
+            label24.Location = new Point(647, 17);
+            label24.Name = "label24";
+            label24.Size = new Size(107, 28);
+            label24.TabIndex = 74;
+            label24.Text = "Last Name:";
+            // 
+            // txtSearchFirstName
+            // 
+            txtSearchFirstName.Font = new Font("Segoe UI", 15F);
+            txtSearchFirstName.Location = new Point(445, 14);
+            txtSearchFirstName.Name = "txtSearchFirstName";
+            txtSearchFirstName.Size = new Size(196, 34);
+            txtSearchFirstName.TabIndex = 73;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 15F);
+            label23.Location = new Point(331, 19);
+            label23.Name = "label23";
+            label23.Size = new Size(110, 28);
+            label23.TabIndex = 72;
+            label23.Text = "First Name:";
+            // 
+            // studentLabelclicked
+            // 
+            studentLabelclicked.AutoSize = true;
+            studentLabelclicked.Location = new Point(20, 77);
+            studentLabelclicked.Name = "studentLabelclicked";
+            studentLabelclicked.Size = new Size(233, 15);
+            studentLabelclicked.TabIndex = 70;
+            studentLabelclicked.Text = "Name of selected will pop here in this label";
+            // 
+            // cbYear
+            // 
+            cbYear.Font = new Font("Segoe UI", 15F);
+            cbYear.FormattingEnabled = true;
+            cbYear.Location = new Point(262, 456);
+            cbYear.Name = "cbYear";
+            cbYear.Size = new Size(101, 36);
+            cbYear.TabIndex = 69;
+            // 
+            // cbDay
+            // 
+            cbDay.Font = new Font("Segoe UI", 15F);
+            cbDay.FormattingEnabled = true;
+            cbDay.Location = new Point(206, 456);
+            cbDay.Name = "cbDay";
+            cbDay.Size = new Size(46, 36);
+            cbDay.TabIndex = 68;
+            // 
+            // cbMonth
+            // 
+            cbMonth.Font = new Font("Segoe UI", 15F);
+            cbMonth.FormattingEnabled = true;
+            cbMonth.Location = new Point(146, 456);
+            cbMonth.Name = "cbMonth";
+            cbMonth.Size = new Size(50, 36);
+            cbMonth.TabIndex = 67;
+            // 
+            // labelBrwDate
+            // 
+            labelBrwDate.AutoSize = true;
+            labelBrwDate.Font = new Font("Segoe UI", 15F);
+            labelBrwDate.Location = new Point(15, 462);
+            labelBrwDate.Name = "labelBrwDate";
+            labelBrwDate.Size = new Size(125, 28);
+            labelBrwDate.TabIndex = 66;
+            labelBrwDate.Text = "Borrow Date:";
+            // 
+            // btnBrwBook
+            // 
+            btnBrwBook.Font = new Font("Segoe UI", 15F);
+            btnBrwBook.Location = new Point(15, 558);
+            btnBrwBook.Name = "btnBrwBook";
+            btnBrwBook.Size = new Size(188, 58);
+            btnBrwBook.TabIndex = 65;
+            btnBrwBook.Text = "Borrow Book";
+            btnBrwBook.UseVisualStyleBackColor = true;
+            // 
+            // labelAvailCopyShow
+            // 
+            labelAvailCopyShow.AutoSize = true;
+            labelAvailCopyShow.Font = new Font("Segoe UI", 15F);
+            labelAvailCopyShow.Location = new Point(621, 469);
+            labelAvailCopyShow.Name = "labelAvailCopyShow";
+            labelAvailCopyShow.Size = new Size(23, 28);
+            labelAvailCopyShow.TabIndex = 64;
+            labelAvailCopyShow.Text = "0";
+            // 
+            // cbSelectBook
+            // 
+            cbSelectBook.Font = new Font("Segoe UI", 15F);
+            cbSelectBook.FormattingEnabled = true;
+            cbSelectBook.Location = new Point(109, 395);
+            cbSelectBook.Name = "cbSelectBook";
+            cbSelectBook.Size = new Size(325, 36);
+            cbSelectBook.TabIndex = 63;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 15F);
+            label8.Location = new Point(15, 403);
+            label8.Name = "label8";
+            label8.Size = new Size(61, 28);
+            label8.TabIndex = 62;
+            label8.Text = "Book:";
+            // 
+            // labelBkHeaderSelect
+            // 
+            labelBkHeaderSelect.AutoSize = true;
+            labelBkHeaderSelect.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelBkHeaderSelect.Location = new Point(15, 289);
+            labelBkHeaderSelect.Name = "labelBkHeaderSelect";
+            labelBkHeaderSelect.Size = new Size(123, 28);
+            labelBkHeaderSelect.TabIndex = 61;
+            labelBkHeaderSelect.Text = "Select Book";
+            // 
+            // studentListDataGridView
+            // 
+            studentListDataGridView.BackgroundColor = SystemColors.Control;
+            studentListDataGridView.BorderStyle = BorderStyle.None;
+            studentListDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            studentListDataGridView.Location = new Point(20, 114);
+            studentListDataGridView.Name = "studentListDataGridView";
+            studentListDataGridView.RowHeadersWidth = 51;
+            studentListDataGridView.Size = new Size(1093, 154);
+            studentListDataGridView.TabIndex = 60;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Font = new Font("Segoe UI", 15F);
+            btnSearch.Location = new Point(968, 13);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(154, 37);
+            btnSearch.TabIndex = 59;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            // 
+            // txtShowAuth
+            // 
+            txtShowAuth.Font = new Font("Segoe UI", 15F);
+            txtShowAuth.Location = new Point(605, 421);
+            txtShowAuth.Name = "txtShowAuth";
+            txtShowAuth.ReadOnly = true;
+            txtShowAuth.Size = new Size(196, 34);
+            txtShowAuth.TabIndex = 58;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F);
+            label1.Location = new Point(496, 427);
+            label1.Name = "label1";
+            label1.Size = new Size(77, 28);
+            label1.TabIndex = 57;
+            label1.Text = "Author:";
+            // 
+            // txtShowTtitle
+            // 
+            txtShowTtitle.Font = new Font("Segoe UI", 15F);
+            txtShowTtitle.Location = new Point(587, 375);
+            txtShowTtitle.Name = "txtShowTtitle";
+            txtShowTtitle.ReadOnly = true;
+            txtShowTtitle.Size = new Size(196, 34);
+            txtShowTtitle.TabIndex = 56;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 15F);
+            label2.Location = new Point(496, 381);
+            label2.Name = "label2";
+            label2.Size = new Size(53, 28);
+            label2.TabIndex = 55;
+            label2.Text = "Title:";
+            // 
+            // cbSelectCat
+            // 
+            cbSelectCat.Font = new Font("Segoe UI", 15F);
+            cbSelectCat.FormattingEnabled = true;
+            cbSelectCat.Location = new Point(124, 344);
+            cbSelectCat.Name = "cbSelectCat";
+            cbSelectCat.Size = new Size(188, 36);
+            cbSelectCat.TabIndex = 54;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 15F);
+            label3.Location = new Point(15, 352);
+            label3.Name = "label3";
+            label3.Size = new Size(103, 28);
+            label3.TabIndex = 53;
+            label3.Text = "Catergory:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 15F);
+            label4.Location = new Point(496, 470);
+            label4.Name = "label4";
+            label4.Size = new Size(123, 28);
+            label4.TabIndex = 51;
+            label4.Text = "Avail Copies:";
+            // 
+            // txtSearchStudentId
+            // 
+            txtSearchStudentId.Font = new Font("Segoe UI", 15F);
+            txtSearchStudentId.Location = new Point(129, 14);
+            txtSearchStudentId.Name = "txtSearchStudentId";
+            txtSearchStudentId.Size = new Size(196, 34);
+            txtSearchStudentId.TabIndex = 49;
+            // 
+            // labelStundentBorrow
+            // 
+            labelStundentBorrow.AutoSize = true;
+            labelStundentBorrow.Font = new Font("Segoe UI", 15F);
+            labelStundentBorrow.Location = new Point(15, 20);
+            labelStundentBorrow.Name = "labelStundentBorrow";
+            labelStundentBorrow.Size = new Size(108, 28);
+            labelStundentBorrow.TabIndex = 48;
+            labelStundentBorrow.Text = "Student ID:";
+            // 
+            // txtShowBookId
+            // 
+            txtShowBookId.Font = new Font("Segoe UI", 15F);
+            txtShowBookId.Location = new Point(587, 338);
+            txtShowBookId.Name = "txtShowBookId";
+            txtShowBookId.ReadOnly = true;
+            txtShowBookId.Size = new Size(196, 34);
+            txtShowBookId.TabIndex = 47;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 15F);
+            label6.Location = new Point(494, 344);
+            label6.Name = "label6";
+            label6.Size = new Size(85, 28);
+            label6.TabIndex = 46;
+            label6.Text = "Book ID:";
             // 
             // panelReturn
             // 
@@ -1469,10 +1468,10 @@ namespace Library_System_V3
             headerPanel.PerformLayout();
             panelBooks.ResumeLayout(false);
             panelBooks.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)booksDataGridView).EndInit();
             panelBorrow.ResumeLayout(false);
             panelBorrow.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)studentListDataGridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)booksDataGridView).EndInit();
             panelReturn.ResumeLayout(false);
             panelReturn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ReturnDataGridView).EndInit();

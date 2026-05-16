@@ -7,9 +7,9 @@ namespace Library_System_V3
     {
         // ✅ One connection string for the whole form
         private readonly string cs =
-            @"Server=.\SQLEXPRESS;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
-
-
+           // @"Server=.\SQLEXPRESS;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
+         @"Server=DESKTOP-INU2S9E\MSSQLSERVER01;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
+        //DESKTOP-INU2S9E\MSSQLSERVER01
         public Form1()
         {
             InitializeComponent();
