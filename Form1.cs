@@ -788,7 +788,7 @@ namespace Library_System_V3
             string lname = row.Cells["LastName"].Value.ToString();
             studentLabelclicked.Text = fname + " " + lname;
         }
-
+        /
         private void btnBrwBook_Click(object sender, EventArgs e)
         {
 
