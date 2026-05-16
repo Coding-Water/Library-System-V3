@@ -51,8 +51,7 @@ namespace Library_System_V3
         {
             HideAllPanels();
             panelCategory.Visible = true;
-
-            // Later: LoadCategories();
+            LoadCategories();
         }
 
         private void btnBooks_Click(object sender, EventArgs e)
@@ -108,6 +107,35 @@ namespace Library_System_V3
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading students: " + ex.Message);
+            }
+        }
+
+        // ----------------------------------------------------
+        // CATEGORY: LOAD DATA (GRID)
+        // ----------------------------------------------------
+
+        private void LoadCategories()
+        {
+            string sql = @"SELECT CategoryId, Category FROM dbo.Category ORDER BY CategoryId ;";
+
+            try
+            {
+                using var con = new SqlConnection(cs);
+                using var da = new SqlDataAdapter(sql, con);
+                var dt = new DataTable();
+                da.Fill(dt);
+
+                catergoryDataGridView.DataSource = dt;
+
+                catergoryDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                catergoryDataGridView.MultiSelect = false;
+                catergoryDataGridView.ReadOnly = true;
+                catergoryDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading categories: " + ex.Message);
             }
         }
 
@@ -293,6 +321,133 @@ namespace Library_System_V3
             txtMiddleName.Text = row.Cells["MiddleName"].Value?.ToString();
             txtEmail.Text = row.Cells["Email"].Value?.ToString();
             txtContact.Text = row.Cells["ContactNum"].Value?.ToString();
+        }
+
+        private void btnAddCat_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(txtCategory.Text))
+            {
+                MessageBox.Show("Category name is required.");
+                return;
+            }
+
+            string sql = @"INSERT INTO dbo.Category (Category) VALUES (@Category);";
+
+
+            try
+            {
+                using var con = new SqlConnection(cs);
+                using var cmd = new SqlCommand(sql, con);
+
+                cmd.Parameters.AddWithValue("@Category", txtCategory.Text.Trim());
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Catergoty Added!");
+                LoadCategories();
+                ClearCategotyFields();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Add failed: " + ex.Message);
+            }
+        }
+
+        private void btnDeleteCat_Click(object sender, EventArgs e)
+        {
+
+            if(!int.TryParse(txtCategoryId.Text, out int categoryId))
+            {
+                MessageBox.Show("Select a Catergory from the table first.");
+                return;
+            }
+
+            var confirm = MessageBox.Show("Delete this student record?", "Confirm", MessageBoxButtons.YesNo);
+            if (confirm != DialogResult.Yes) return;
+
+            string sql = @"DELETE FROM dbo.Category WHERE CategoryId=@CategoryId;";
+
+            try
+            {
+                using var con = new SqlConnection(cs);
+                using var cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Category Deleted!");
+                LoadCategories();
+                ClearCategotyFields();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Delete failed: " + ex.Message);
+            }
+        }
+
+
+        private void btnUpdateCat_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(txtCategoryId.Text, out int categoryId))
+            {
+                MessageBox.Show("Select a category from the table first.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtCategory.Text))
+            {
+                MessageBox.Show("Category is required.");
+                return;
+            }
+
+            string sql = @"
+                    UPDATE dbo.Category
+                    SET Category = @Category
+                    WHERE CategoryId = @CategoryId;";
+
+            try
+            {
+                using var con = new SqlConnection(cs);
+                using var cmd = new SqlCommand(sql, con);
+
+                cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+                cmd.Parameters.AddWithValue("@Category", txtCategory.Text.Trim());
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Category Updated!");
+                LoadCategories();
+                ClearCategotyFields();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Category Update failed: " + ex.Message);
+            }
+        }
+
+        private void btnClearCat_Click(object sender, EventArgs e)
+        {
+            ClearCategotyFields();
+        }
+
+        private void ClearCategotyFields()
+        {
+            txtCategory.Clear();
+
+            txtCategoryId.ReadOnly = true;
+        }
+
+        private void catergoryDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = catergoryDataGridView.Rows[e.RowIndex];
+
+            txtCategoryId.Text = row.Cells["CategoryId"].Value?.ToString();
+            txtCategory.Text = row.Cells["Category"].Value?.ToString();
         }
     }
 }

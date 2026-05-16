@@ -199,10 +199,10 @@ namespace Library_System_V3
             panelBooks.Controls.Add(btnBkDelete);
             panelBooks.Controls.Add(btnBkAdd);
             panelBooks.Controls.Add(booksDataGridView);
-            panelBooks.Location = new Point(1617, 51);
+            panelBooks.Location = new Point(185, 74);
             panelBooks.Margin = new Padding(3, 4, 3, 4);
             panelBooks.Name = "panelBooks";
-            panelBooks.Size = new Size(122, 147);
+            panelBooks.Size = new Size(1292, 837);
             panelBooks.TabIndex = 29;
             // 
             // txtBkAuth
@@ -1137,6 +1137,7 @@ namespace Library_System_V3
             catergoryDataGridView.RowHeadersWidth = 51;
             catergoryDataGridView.Size = new Size(1215, 644);
             catergoryDataGridView.TabIndex = 28;
+            catergoryDataGridView.CellClick += catergoryDataGridView_CellClick;
             // 
             // txtCategory
             // 
@@ -1187,6 +1188,7 @@ namespace Library_System_V3
             btnUpdateCat.TabIndex = 23;
             btnUpdateCat.Text = "Update";
             btnUpdateCat.UseVisualStyleBackColor = true;
+            btnUpdateCat.Click += btnUpdateCat_Click;
             // 
             // btnClearCat
             // 
@@ -1198,6 +1200,7 @@ namespace Library_System_V3
             btnClearCat.TabIndex = 22;
             btnClearCat.Text = "Clear";
             btnClearCat.UseVisualStyleBackColor = true;
+            btnClearCat.Click += btnClearCat_Click;
             // 
             // btnDeleteCat
             // 
@@ -1209,6 +1212,7 @@ namespace Library_System_V3
             btnDeleteCat.TabIndex = 21;
             btnDeleteCat.Text = "Delete";
             btnDeleteCat.UseVisualStyleBackColor = true;
+            btnDeleteCat.Click += btnDeleteCat_Click;
             // 
             // btnAddCat
             // 
@@ -1220,6 +1224,7 @@ namespace Library_System_V3
             btnAddCat.TabIndex = 20;
             btnAddCat.Text = "Add";
             btnAddCat.UseVisualStyleBackColor = true;
+            btnAddCat.Click += btnAddCat_Click;
             // 
             // panelStudent
             // 
