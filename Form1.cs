@@ -222,8 +222,6 @@ namespace Library_System_V3
                 MessageBox.Show("Error loading categories for combo box: " + ex.Message);
             }
         }
-        // ✅ LOAD CATEGORY DROPDOWN (BORROW PANEL)
-
         // BORROW: LOAD CATEGORIES
         private void LoadBorrowCategoryComboBox()
         {
@@ -393,7 +391,15 @@ namespace Library_System_V3
         {
             if (e.RowIndex < 0) return;
             var row = studentListDataGridView.Rows[e.RowIndex];
-            _selectedStudentRecordId = Convert.ToInt32(row.Cells["RecordID"].Value);
+            
+            var recordIdValue = row.Cells["RecordID"].Value;
+            if (recordIdValue == null || recordIdValue is DBNull)
+            {
+                MessageBox.Show("Invalid RecordID.");
+                return;
+            }
+            
+            _selectedStudentRecordId = Convert.ToInt32(recordIdValue);
             string fn = row.Cells["FirstName"].Value?.ToString();
             string ln = row.Cells["LastName"].Value?.ToString();
             studentLabelclicked.Text = $"{fn} {ln}";
